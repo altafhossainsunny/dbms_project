@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, flash, redirect, request, jsonify
-from .models import Product, Cart, Order
+from flask import Blueprint, render_template, flash, redirect, request, jsonify, url_for
+from .models import Product, Cart, Order, Customer
 from flask_login import login_required, current_user
 from . import db
 import paypalrestsdk
@@ -38,7 +38,6 @@ def add_to_cart(item_id):
     item_to_add = Product.query.get(item_id)
     item_exists = Cart.query.filter_by(product_link=item_id, customer_link=current_user.id).first()
 
-    # Retrieve the address of the current user
     customer = Customer.query.filter_by(id=current_user.id).first()
     user_address = customer.address if customer else None
 
@@ -64,21 +63,12 @@ def add_to_cart(item_id):
                 print('Item not added to cart:', e)
                 flash(f'{new_cart_item.product.product_name} has not been added to cart')
     else:
-        flash('Customer address not found')
+        flash('Please update your profile with an address before adding items to your cart.')
+        return redirect(url_for('auth.update_profile', customer_id=current_user.id))
 
     return redirect(request.referrer)
 
-    
-        new_cart_item = Cart(quantity=1, product_link=item_to_add.id,
-                             customer_link=current_user.id)
-    try:
-        db.session.add(new_cart_item)
-        db.session.commit()
-        flash(f'{new_cart_item.product.product_name} added to cart')
-    except Exception as e:
-        print('Item not added to cart:', e)
-        flash(f'{new_cart_item.product.product_name} has not been added to cart')
-    return redirect(request.referrer)
+
 
 @views.route('/cart')
 @login_required
