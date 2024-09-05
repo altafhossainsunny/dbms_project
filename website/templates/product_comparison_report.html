@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Product Comparison Report {% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center text-white">Product Comparison Report</h1>
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">S/N</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Total Quantity Sold</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in report %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row.product_name }}</td>
+                <td>RM {{ row.current_price }}</td>
+                <td>{{ row.total_quantity_sold }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

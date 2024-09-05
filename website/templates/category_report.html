@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Sales by Category Report {% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 style="text-align: center; color: #ffffff;">Sales by Category Report</h1>
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">S/N</th>
+                <th scope="col">Category</th>
+                <th scope="col">Total Orders</th>
+                <th scope="col">Total Quantity Sold</th>
+                <th scope="col">Total Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in report %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row.product_category }}</td>
+                <td>{{ row.total_orders }}</td>
+                <td>{{ row.total_quantity_sold }}</td>
+                <td>RM {{ row.total_revenue }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

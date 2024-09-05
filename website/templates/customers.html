@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Customers {% endblock %}
+
+{% block body %}
+
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Customer ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Date Joined</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.full_name if customer.full_name else customer.username }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.address }}</td>
+        <td>{{ customer.date_joined }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

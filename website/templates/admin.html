@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} Admin Page {% endblock %}
+
+{% block body %}
+
+<table class="table table-dark table-hover">
+    <thead>
+        <h2 class="text-center text-white">Commerce</h2>
+        <tr>
+            <th scope="col">Customers</th>
+            <th scope="col">Shop Items</th>
+            <th scope="col">Add Shop Items</th>
+            <th scope="col">View Orders</th>
+
+        </tr>
+    </thead> 
+    <tbody>
+        <tr>
+        <td><a href="/customers">Customers</a></td>
+        <td><a href="/shop-items">Shop Items</a></td>
+        <td><a href="/add-shop-items">Add Shop Items</a></td>
+        <td><a href="/view-orders">View Orders</a></td>
+        </tr>
+    </tbody>
+</table>
+<div class="spacer"></div>
+<table class="table table-dark table-hover">
+    <thead>
+        <h2 class="text-center text-white">Sales Report</h2>
+        <tr>
+            <th scope="col">Sales by Product</th>
+            <th scope="col">Sales by Category</th>
+            <th scope="col">Sales by Time period</th>
+            <th scope="col">Repeat Customers</th>
+            <th scope="col">Top Selling Products</th>
+        </tr>
+    </thead> 
+    <tbody>
+        <tr>
+        <td><a href="/product-report">View</a></td>
+        <td><a href="/category-report">View</a></td>
+        <td><a href="/monthly-report">View</a></td>
+        <td><a href="/repeat-customers-report">View</a></td>
+        <td><a href="/product-comparison-report">View</a></td>
+        </tr>
+    </tbody>
+</table>
+
+
+{% endblock %}
