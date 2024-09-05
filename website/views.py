@@ -36,22 +36,38 @@ def home_category():
 @login_required
 def add_to_cart(item_id):
     item_to_add = Product.query.get(item_id)
-    item_exists = Cart.query.filter_by(product_link=item_id,
-                                       customer_link=current_user.id).first()
+    item_exists = Cart.query.filter_by(product_link=item_id, customer_link=current_user.id).first()
 
-    user_address = Customer.query.filter_by(id=current_user.id).first().addressaddress = Customer.query.filter_by(id=current_user.id)
+    # Retrieve the address of the current user
+    customer = Customer.query.filter_by(id=current_user.id).first()
+    user_address = customer.address if customer else None
+
     if user_address:
         if item_exists:
             try:
+                # Update the quantity of an existing item in the cart
                 item_exists.quantity += 1
                 valu_up = item_exists.product.product_name
                 db.session.commit()
                 flash(f'Quantity of {valu_up} has been updated')
-                return redirect(request.referrer)
             except Exception as e:
                 print('Quantity not updated:', e)
                 flash(f'Quantity of {item_exists.product.product_name} not updated')
-                return redirect(request.referrer)
+        else:
+            # Add a new item to the cart
+            new_cart_item = Cart(quantity=1, product_link=item_to_add.id, customer_link=current_user.id)
+            try:
+                db.session.add(new_cart_item)
+                db.session.commit()
+                flash(f'{new_cart_item.product.product_name} added to cart')
+            except Exception as e:
+                print('Item not added to cart:', e)
+                flash(f'{new_cart_item.product.product_name} has not been added to cart')
+    else:
+        flash('Customer address not found')
+
+    return redirect(request.referrer)
+
     
         new_cart_item = Cart(quantity=1, product_link=item_to_add.id,
                              customer_link=current_user.id)
