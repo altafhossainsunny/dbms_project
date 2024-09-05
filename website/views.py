@@ -38,20 +38,23 @@ def add_to_cart(item_id):
     item_to_add = Product.query.get(item_id)
     item_exists = Cart.query.filter_by(product_link=item_id,
                                        customer_link=current_user.id).first()
-    if item_exists:
-        try:
-            item_exists.quantity += 1
-            valu_up = item_exists.product.product_name
-            db.session.commit()
-            flash(f'Quantity of {valu_up} has been updated')
-            return redirect(request.referrer)
-        except Exception as e:
-            print('Quantity not updated:', e)
-            flash(f'Quantity of {item_exists.product.product_name} not updated')
-            return redirect(request.referrer)
 
-    new_cart_item = Cart(quantity=1, product_link=item_to_add.id,
-                         customer_link=current_user.id)
+    user_address = Customer.query.filter_by(id=current_user.id).first().addressaddress = Customer.query.filter_by(id=current_user.id)
+    if user_address:
+        if item_exists:
+            try:
+                item_exists.quantity += 1
+                valu_up = item_exists.product.product_name
+                db.session.commit()
+                flash(f'Quantity of {valu_up} has been updated')
+                return redirect(request.referrer)
+            except Exception as e:
+                print('Quantity not updated:', e)
+                flash(f'Quantity of {item_exists.product.product_name} not updated')
+                return redirect(request.referrer)
+    
+        new_cart_item = Cart(quantity=1, product_link=item_to_add.id,
+                             customer_link=current_user.id)
     try:
         db.session.add(new_cart_item)
         db.session.commit()
