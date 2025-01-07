@@ -1,4 +1,4 @@
-## 🐱‍🏍✨Flask Ecommerce✨🐱‍🏍
+## 🐱‍🏍✨Flask Donation site✨🐱‍🏍
 
 🐍Python Project🐍
 
