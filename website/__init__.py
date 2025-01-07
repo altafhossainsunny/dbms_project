@@ -6,7 +6,7 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    db_info = 'mysql://campus_dev:campus_dev_pwd@localhost/campus_dev_db'
+    db_info = 'mysql://root:1552Al*1552@localhost/campus_dev_db'
     app.config['SQLALCHEMY_DATABASE_URI'] = db_info
     app.config['SECRET_KEY'] = 'hbnwdvbn ajnbsjn ahe'
 
